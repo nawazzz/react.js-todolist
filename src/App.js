@@ -43,6 +43,22 @@ class App extends React.Component {
       allTodo: filteredAlltodo
     })
   }
+  markAsCompleted = (elm) => {
+    const strikeThrough = this.state.allTodo.map((item, index) => {
+      if (elm.id === item.id) {
+        return {
+          ...item,
+          isCompleted: !item.isCompleted
+        }
+      }
+      return item
+    })
+    this.setState({
+      allTodo: strikeThrough
+    }, () => {
+      console.log(this.state.allTodo)
+    })
+  }
 
   render() {
     return (

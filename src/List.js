@@ -9,8 +9,8 @@ class List extends React.Component {
           {this.props.allTodo && this.props.allTodo.map((elm, index) => {
             return(
               <div>
-                <span><input type="radio" id={elm.id} onClick={() => this.props.markAsCompleted}/></span>
-                <span>{elm.inputValue}</span>
+                <span><input type="checkbox" id={elm.id} onClick={() => this.props.markAsCompleted(elm)}/></span>
+                <span style={{textDecoration: elm.isCompleted? "line-through" : "none" }}>{elm.inputValue}</span>
                 <span onClick={() => this.props.deleteListElement(elm)}>X</span>
               </div>
             )
