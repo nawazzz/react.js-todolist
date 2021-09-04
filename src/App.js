@@ -35,20 +35,22 @@ class App extends React.Component {
     })
   }
   handleSubmit = (e) => {
-    // console.log(e)
+    console.log(e)
     let obj = {
       inputValue: this.state.value,
       isCompleted: false,
       id: new Date().getTime()
     }
-    if (this.state.value.length > 0) {
-      this.state.allTodo.push(obj)
+    if (e.charCode === 13 && this.state.value.length > 0) {
+      this.setState({
+        allTodo: [
+          ...this.state.allTodo,
+          obj
+        ],
+        value: ""
+      })
     }
-    this.setState({
-      value: ""
-    }, () => {
-      // console.log(this.state)
-    })
+    
   }
   deleteListElement = (elm) => {
     const filteredAlltodo = this.state.allTodo.filter((item, index) => {
@@ -75,7 +77,7 @@ class App extends React.Component {
     })
   }
   handleFilter = (e) => {
-    console.log(e.target.dataset.name)
+    // console.log(e.target.dataset.name)
     this.setState({
       selectedFilter: e.target.dataset.name
     })
@@ -133,7 +135,7 @@ class App extends React.Component {
       })
     }
 
-    console.log(filteredTodo)
+    // console.log(filteredTodo)
     return (
       <React.Fragment>
         <Modal
@@ -145,8 +147,8 @@ class App extends React.Component {
           editTodoWithThisId={this.state.editTodoWithThisId}
           handleEdit={this.handleEdit}
         >
-          <h2>Hello</h2>
-          <button onClick={this.handleModalClose}>close</button>
+          <h2>Edit your todo</h2>
+          {/* <button onClick={this.handleModalClose}>close</button> */}
           <div>
             <input type={"text"} value={this.state.editText} onChange={this.handleEdit}/>
           </div>
@@ -156,12 +158,19 @@ class App extends React.Component {
         </Modal>
         <div className="App">
           <h1>todos</h1>
-          <input type="text" placeholder="What needs to be done?" value={this.state.value} onChange={this.hanldeChange} />
-          <input type="submit" onClick={this.handleSubmit} />
+          <div className="inputContainer">
+            {/* <span ><select className="selectAllTodo"></select></span> */}
+            <input type="text" placeholder="What needs to be done?" value={this.state.value} onChange={this.hanldeChange} className="inputText" onKeyPress={this.handleSubmit}
+            />
+            {/* <input type="submit" onClick={this.handleSubmit} className="submitButton"/> */}
+          </div>
         </div>
         <List allTodo={this.state.selectedFilter === "All" ? this.state.allTodo : filteredTodo} deleteListElement={this.deleteListElement} markAsCompleted={this.markAsCompleted} editListThroughModal={this.editListThroughModal}
         />
-        <div onClick={this.handleFilter}>
+        <div onClick={this.handleFilter} className="todoFilterContainer">
+          <span>
+          {this.state.allTodo.length} items left
+          </span>
           <span data-name={'All'}>
             All {this.state.allTodo.length}
           </span>
