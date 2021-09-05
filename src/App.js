@@ -134,55 +134,96 @@ class App extends React.Component {
         }
       })
     }
-
-    // console.log(filteredTodo)
-    return (
-      <React.Fragment>
-        <Modal
-          isOpen={this.state.isEditModalOpen}
-          // onAfterOpen={afterOpenModal}
-          onRequestClose={this.handleModalClose}
-          style={customStyles}
-          contentLabel="Example Modal"
-          editTodoWithThisId={this.state.editTodoWithThisId}
-          handleEdit={this.handleEdit}
-        >
-          <h2>Edit your todo</h2>
-          {/* <button onClick={this.handleModalClose}>close</button> */}
-          <div>
-            <input type={"text"} value={this.state.editText} onChange={this.handleEdit}/>
-          </div>
-          <div>
-          <input type="submit" onClick={this.handleEditedTodo} />
-          </div>
-        </Modal>
-        <div className="App">
-          <h1>todos</h1>
-          <div className="inputContainer">
-            {/* <span ><select className="selectAllTodo"></select></span> */}
-            <input type="text" placeholder="What needs to be done?" value={this.state.value} onChange={this.hanldeChange} className="inputText" onKeyPress={this.handleSubmit}
-            />
-            {/* <input type="submit" onClick={this.handleSubmit} className="submitButton"/> */}
-          </div>
+if (this.state.allTodo.length > 0) {
+  return (
+    
+    <React.Fragment>
+      <Modal
+        isOpen={this.state.isEditModalOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={this.handleModalClose}
+        style={customStyles}
+        contentLabel="Example Modal"
+        editTodoWithThisId={this.state.editTodoWithThisId}
+        handleEdit={this.handleEdit}
+      >
+        <h2 className="editTodoInModal">Edit your todo:</h2>
+        {/* <button onClick={this.handleModalClose}>close</button> */}
+        <div>
+          <input type={"text"} value={this.state.editText} onChange={this.handleEdit} className="inputTextModal" />
         </div>
-        <List allTodo={this.state.selectedFilter === "All" ? this.state.allTodo : filteredTodo} deleteListElement={this.deleteListElement} markAsCompleted={this.markAsCompleted} editListThroughModal={this.editListThroughModal}
-        />
-        <div onClick={this.handleFilter} className="todoFilterContainer">
+        <div>
+        <input type="submit" onClick={this.handleEditedTodo} className="submitButtonModal"/>
+        </div>
+      </Modal>
+      <div className="App">
+        <h1>todos</h1>
+        <div className="inputContainer">
+          {/* <span ><select className="selectAllTodo"></select></span> */}
+          <input type="text" placeholder="What needs to be done?" value={this.state.value} onChange={this.hanldeChange} className="inputText" onKeyPress={this.handleSubmit}
+          />
+          {/* <input type="submit" onClick={this.handleSubmit} className="submitButton"/> */}
+        </div>
+      </div>
+      <List allTodo={this.state.selectedFilter === "All" ? this.state.allTodo : filteredTodo} deleteListElement={this.deleteListElement} markAsCompleted={this.markAsCompleted} editListThroughModal={this.editListThroughModal}
+      />
+      <div onClick={this.handleFilter} className="todoFilterContainer">
+        {/* <div>
           <span>
           {this.state.allTodo.length} items left
           </span>
-          <span data-name={'All'}>
-            All {this.state.allTodo.length}
+        </div> */}
+        <div className="allFilters">
+          <span className="allTodoFilter" data-name={'All'}>
+            All 
           </span>
-          <span data-name={'Active'}>
+          <span className="activeTodoFilter" data-name={'Active'}>
             Active
           </span>
-          <span data-name={'Completed'}>
+          <span className="completedTodoFilter" data-name={'Completed'}>
             Completed
           </span>
         </div>
-      </React.Fragment>
-    );
+      </div>
+    </React.Fragment>
+  );
+} else {
+  return (
+    
+    <React.Fragment>
+      <Modal
+        isOpen={this.state.isEditModalOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={this.handleModalClose}
+        style={customStyles}
+        contentLabel="Example Modal"
+        editTodoWithThisId={this.state.editTodoWithThisId}
+        handleEdit={this.handleEdit}
+      >
+        <h2 className="editTodoInModal">Edit your todo:</h2>
+        {/* <button onClick={this.handleModalClose}>close</button> */}
+        <div>
+          <input type={"text"} value={this.state.editText} onChange={this.handleEdit} className="inputTextModal" />
+        </div>
+        <div>
+        <input type="submit" onClick={this.handleEditedTodo} className="submitButtonModal"/>
+        </div>
+      </Modal>
+      <div className="App">
+        <h1>todos</h1>
+        <div className="inputContainer">
+          {/* <span ><select className="selectAllTodo"></select></span> */}
+          <input type="text" placeholder="What needs to be done?" value={this.state.value} onChange={this.hanldeChange} className="inputText" onKeyPress={this.handleSubmit}
+          />
+          {/* <input type="submit" onClick={this.handleSubmit} className="submitButton"/> */}
+        </div>
+      </div>
+      <List allTodo={this.state.selectedFilter === "All" ? this.state.allTodo : filteredTodo} deleteListElement={this.deleteListElement} markAsCompleted={this.markAsCompleted} editListThroughModal={this.editListThroughModal}
+      />
+    </React.Fragment>
+  );
+}
+    
   }
 }
 
